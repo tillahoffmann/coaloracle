@@ -24,6 +24,7 @@ CSV_TARGETS = $(addprefix ${CSV_PREFIX}/,${RDA_FILES:.rda=.csv})
 ${CSV_TARGETS} : ${CSV_PREFIX}/%.csv : ${RDA_PREFIX}/%.rda rda2csv.r
 	mkdir -p $(dir $@)
 	Rscript --vanilla rda2csv.r $< $* $@
+	python describe.py $@
 
 ${CSV_PREFIX} : ${CSV_TARGETS}
 
