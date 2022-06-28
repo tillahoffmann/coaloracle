@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Continuous Integration
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "3.9.9"
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.1.2"
+      - name: "Install python dependencies"
+        run: "pip install -r requirements.txt"
+      - name: "Download RDA files and validate them"
+        run: "make rda/validate"
+      - name: "Convert to CSV"
+        run: "make csv"
+      - name: "Release data for tags"
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: "csv/coal*.csv"
