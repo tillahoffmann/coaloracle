@@ -37,7 +37,7 @@ clean :
 rda.shasum : ${RDA_TARGETS}
 	shasum $^ > $@
 
-rda/validate : rda.shasum
+rda/validate : rda.shasum ${RDA_TARGETS}
 	shasum -c $<
 
 # Python requirements.
