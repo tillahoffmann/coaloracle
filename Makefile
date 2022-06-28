@@ -39,3 +39,8 @@ rda.shasum : ${RDA_TARGETS}
 
 rda/validate : rda.shasum
 	shasum -c $<
+
+# Python requirements.
+
+requirements.txt : requirements.in
+	pip-compile -v
