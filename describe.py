@@ -8,6 +8,7 @@ def __main__(args: list[str] = None) -> None:
     args = parser.parse_args(args)
 
     data = pd.read_csv(args.filename)
+    print(f"Description of data in {args.filename}")
     print(data.describe())
 
 
