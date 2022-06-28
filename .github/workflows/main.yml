@@ -27,10 +27,10 @@ jobs:
         run: "pip install -r requirements.txt"
       - name: "Download RDA files and validate them"
         run: "make rda/validate"
-      - name: "Convert to CSV"
-        run: "make csv"
+      - name: "Convert to CSV and package the data"
+        run: "make csv/csv.zip"
       - name: "Release data for tags"
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: "csv/coal*.csv"
+          files: "csv/csv.zip"

@@ -28,6 +28,9 @@ ${CSV_TARGETS} : ${CSV_PREFIX}/%.csv : ${RDA_PREFIX}/%.rda rda2csv.r
 
 ${CSV_PREFIX} : ${CSV_TARGETS}
 
+${CSV_PREFIX}/csv.zip : ${CSV_TARGETS}
+	zip $@ $^
+
 # Delete all data.
 
 clean :
